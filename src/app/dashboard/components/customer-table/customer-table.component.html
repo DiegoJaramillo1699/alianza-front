@@ -1,0 +1,73 @@
+<p-table [value]="customers" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="isLoading"
+    [paginator]="true" [globalFilterFields]="['customer', 'customer.phone']" [tableStyle]="{ 'min-width': '75rem' }">
+    <ng-template pTemplate="caption">
+        <div class="flex gap-2">
+            <app-create-customer (isNewCustomer)="getAllCustomers()"></app-create-customer>
+            <p-button (onClick)="exportToExcel()" label="Export" [disabled]="customers.length==0">
+            </p-button>
+            <p-iconField iconPosition="left" class="ml-auto">
+
+                <p-inputIcon>
+                    <i class="pi pi-search"></i>
+                </p-inputIcon>
+                <!-- <form [formGroup]="searchForm" (ngSubmit)="searchCustomerByKey($event)"> -->
+                <input pInputText type="text" placeholder="Search by Shared Key"
+                    (input)="searchCustomerByKey($event)" />
+
+                <!-- </form> -->
+            </p-iconField>
+
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width:22%">Shared Key</th>
+            <th style="width:22%">Business Id</th>
+            <th style="width:22%">Email</th>
+            <th style="width:22%">Phone</th>
+            <th style="width:12%">Created At</th>
+            <th style="width:12%">Edit</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-customer>
+        <tr>
+            <td>
+                {{ customer.sharedKey }}
+            </td>
+            <td>
+                <span class="ml-1 vertical-align-middle">
+                    {{ customer.businessId }}
+                </span>
+            </td>
+            <td>
+                <span class="ml-1 vertical-align-middle">
+                    {{ customer.email }}
+                </span>
+            </td>
+            <td>
+                <span class="ml-1 vertical-align-middle">
+                    {{ customer.phone }}
+                </span>
+            </td>
+            <td>
+                <span class="ml-1 vertical-align-middle">
+                    {{ customer.createdAt }}
+                </span>
+            </td>
+            <td>
+                <span class="ml-1 vertical-align-middle">
+                    <i class="pi pi-pencil"></i>
+                </span>
+
+            </td>
+        </tr>
+    </ng-template>
+
+
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="5"> {{ emptyResponseMessage}}.</td>
+        </tr>
+    </ng-template>
+
+</p-table>

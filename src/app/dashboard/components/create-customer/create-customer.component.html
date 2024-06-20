@@ -1,0 +1,27 @@
+<p-button (click)="showDialog(true)" label="Create" />
+<p-dialog header="Create Customer" [modal]="true" [(visible)]="visible" [style]="{ width: '30rem' }">
+    <form [formGroup]="profileForm" (ngSubmit)="handleSubmit()">
+        <span class="p-text-secondary block mb-5">Create new customer</span>
+        <div class="flex align-items-center gap-3 mb-3">
+            <label for="sharedKey" class="font-semibold w-6rem">Shared Key</label>
+            <input pInputText type="text" id="sharedKey" formControlName="sharedKey" class="flex-auto" autocomplete="off" onkeydown="return /[a-zA-Z]/i.test(event.key)"/>
+        </div>
+        <div class="flex align-items-center gap-3 mb-3">
+            <label for="businessId" class="font-semibold w-6rem">Business Id</label>
+            <input pInputText id="businessId" formControlName="businessId" class="flex-auto" autocomplete="off" onkeydown="return /[a-zA-Z ]/i.test(event.key)"/>
+        </div>
+        <div class="flex align-items-center gap-3 mb-3">
+            <label for="email" class="font-semibold w-6rem">Email</label>
+            <input pInputText id="email" formControlName="email" class="flex-auto" autocomplete="off" />
+        </div>
+        <div class="flex align-items-center gap-3 mb-3">
+            <label for="phone" class="font-semibold w-6rem">Phone</label>
+            <input pInputText id="phone" formControlName="phone" class="flex-auto" autocomplete="off" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
+        </div>
+
+        <div class="flex justify-content-end gap-2">
+            <p-button label="Cancel" severity="secondary" (click)="visible = false"/>
+            <p-button label="Save" type="submit" [disabled]="profileForm.invalid"/>
+        </div>
+    </form>
+</p-dialog>
